@@ -37,6 +37,11 @@ namespace Grains
         public Task Poke(IUser user, string message)
         {
             Console.WriteLine($"[{this.GetPrimaryKeyString()}] User {user.GetPrimaryKeyString()} poked me with '{message}'");
+
+            var rId = RequestContext.Get("requestId");
+            if (rId != null)
+                Console.WriteLine($"[Poke]: {rId}");
+
             return Task.CompletedTask;
         }
 
@@ -52,9 +57,18 @@ namespace Grains
             return WriteStateAsync();
         }
 
-        public Task<UserProperties> GetProperties()
+        public async Task<UserProperties> GetProperties()
         {
-            return Task.FromResult(State);
+            
+            var rId = RequestContext.Get("requestId");
+            if(rId!=null)
+                Console.WriteLine($"[GetProperties]: {rId}");
+
+
+            RequestContext.Set("requestId", RequestContext.Get("requestId") + "abc");
+
+            await State.Friends.ToList()[1].Poke(this, "testing");
+            return State;
         }
 
         public async Task<bool> InviteFriend(IUser user)

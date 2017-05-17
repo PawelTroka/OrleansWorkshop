@@ -136,6 +136,8 @@ namespace Test
 
         public static async Task Test(IClusterClient client)
         {
+            RequestContext.Set("requestId", "xyz");
+
             var mark = client.GetGrain<IUser>("mark@fb.com");
 
             var jack = client.GetGrain<IUser>("jack@twitter.com");
@@ -143,7 +145,6 @@ namespace Test
             //await PopulateUsers(client, mark, jack);
 
 
-            
 
 
 
