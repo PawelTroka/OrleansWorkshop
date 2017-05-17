@@ -22,10 +22,9 @@ namespace Test
             StartAzureTableStorageSilo(2,clusterId);
 			
             var client = InitAzureClient(clusterId);//InitLocalStorageAndClient();
-
 			Console.WriteLine("Client started...");
 
-            //Test(client).Wait();
+            Test(client).Wait();
 
             Console.WriteLine("Write Enter to close");
             Console.ReadLine();
@@ -53,6 +52,7 @@ namespace Test
             siloConfig.Globals.ReminderServiceType = GlobalConfiguration.ReminderServiceProviderType.AzureTable;
             siloConfig.Globals.DataConnectionString = azureConnectionString;
             siloConfig.Globals.DeploymentId = cluserId;
+            siloConfig.AddAzureTableStorageProvider("Storage");
 
             siloConfig.Defaults.DefaultTraceLevel = Severity.Warning;
 

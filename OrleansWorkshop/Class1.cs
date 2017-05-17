@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Orleans;
+using Orleans.Timers;
 
 namespace OrleansWorkshop
 {
@@ -20,8 +21,9 @@ namespace OrleansWorkshop
         }
     }
 
-    public interface IUser : IGrainWithStringKey
+    public interface IUser : IGrainWithStringKey, IRemindable
     {
+        Task Poke(IUser user, string message);
         Task SetName(string name);
         Task SetStatus(string status);
 
