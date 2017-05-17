@@ -9,6 +9,7 @@ using Orleans;
 using Orleans.Runtime;
 using Orleans.Runtime.Configuration;
 using Orleans.Runtime.Host;
+using OrleansDashboard;
 using OrleansWorkshop;
 
 namespace Test
@@ -54,6 +55,9 @@ namespace Test
             siloConfig.Globals.DeploymentId = cluserId;
             siloConfig.AddAzureTableStorageProvider("Storage");
 
+            if(index==1)
+                siloConfig.Globals.RegisterDashboard();
+
             siloConfig.Defaults.DefaultTraceLevel = Severity.Warning;
 
 
@@ -92,29 +96,7 @@ namespace Test
             await jack.SetName("Jack");
             await jack.SetStatus("Tweet me!");
 
-            var props = await mark.GetProperties();
-            Console.WriteLine($"Mark: {props}");
 
-
-            props = await jack.GetProperties();
-            Console.WriteLine($"Jack: {props}");
-
-        }
-
-        public static async Task Test(IClusterClient client)
-        {
-            var mark = client.GetGrain<IUser>("mark@fb.com");
-
-            var jack = client.GetGrain<IUser>("jack@twitter.com");
-
-            await PopulateUsers(client, mark, jack);
-
-            var props = await mark.GetProperties();
-            Console.WriteLine($"Mark: {props}");
-
-
-            props = await jack.GetProperties();
-            Console.WriteLine($"Jack: {props}");
 
             var ok = await mark.AddFriend(jack);
 
@@ -149,15 +131,21 @@ namespace Test
             await Task.WhenAll(tasks);
             sw.Stop();
             Console.WriteLine($"Parallel execution: {sw.ElapsedMilliseconds}");
+
         }
 
-        public static async Task TestOld(IClusterClient client)
+        public static async Task Test(IClusterClient client)
         {
             var mark = client.GetGrain<IUser>("mark@fb.com");
 
             var jack = client.GetGrain<IUser>("jack@twitter.com");
 
-            await PopulateUsers(client,mark, jack);
+            //await PopulateUsers(client, mark, jack);
+
+
+            
+
+
 
             var props = await mark.GetProperties();
             Console.WriteLine($"Mark: {props}");
@@ -165,40 +153,7 @@ namespace Test
 
             props = await jack.GetProperties();
             Console.WriteLine($"Jack: {props}");
-
-            var ok = await mark.AddFriend(jack);
-
-            if(ok)
-                Console.WriteLine("Mark added Jack as friend");
-
-            var sw = Stopwatch.StartNew();
-
-            for (int i = 0; i < 100; i++)
-            {
-                var user = client.GetGrain<IUser>($"user{i}@outlook.com");
-                await user.SetName($"User #{i}");
-                await user.SetStatus((i%3 == 0) ? "Sad" : "Happy!");
-                await ((i % 2 == 0) ? mark : jack).AddFriend(user);
-                var p = await user.GetProperties();
-                //Console.WriteLine(p);
-            }
-            sw.Stop();
-
-            Console.WriteLine($"Serial execution: {sw.ElapsedMilliseconds}");
-
-            sw.Restart();
-            var tasks = new List<Task>();
-            for (int i = 100; i < 200; i++)
-            {
-                var user = client.GetGrain<IUser>($"user{i}@outlook.com");
-                tasks.Add(user.SetName($"User #{i}"));
-                tasks.Add(user.SetStatus((i % 3 == 0) ? "Sad" : "Happy!"));
-                tasks.Add(((i % 2 == 0) ? mark : jack).AddFriend(user));
-                //tasks.Add(user.GetProperties());
-            }
-            await Task.WhenAll(tasks);
-            sw.Stop();
-            Console.WriteLine($"Parallel execution: {sw.ElapsedMilliseconds}");
         }
+        
     }
 }
