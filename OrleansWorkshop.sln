@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "OrleansWorkshop\Interface.csproj", "{F4A50636-8E23-40E8-9D74-D2CE462FD506}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grains", "Grains\Grains.csproj", "{8B6EC513-A756-4899-8B5F-1E53477239C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{6289C8A7-550F-48CF-BCCF-C6981BD072A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4A50636-8E23-40E8-9D74-D2CE462FD506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A50636-8E23-40E8-9D74-D2CE462FD506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4A50636-8E23-40E8-9D74-D2CE462FD506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4A50636-8E23-40E8-9D74-D2CE462FD506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B6EC513-A756-4899-8B5F-1E53477239C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B6EC513-A756-4899-8B5F-1E53477239C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B6EC513-A756-4899-8B5F-1E53477239C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B6EC513-A756-4899-8B5F-1E53477239C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6289C8A7-550F-48CF-BCCF-C6981BD072A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6289C8A7-550F-48CF-BCCF-C6981BD072A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6289C8A7-550F-48CF-BCCF-C6981BD072A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6289C8A7-550F-48CF-BCCF-C6981BD072A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
